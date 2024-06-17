@@ -1,12 +1,23 @@
-# Non-Recursive Algorithm
-def factorial_non_recursive(n):
-    result = 1
-    for i in range(1, n + 1):
-        result *= i
-    return result
-# Recursive Algorithm
-def factorial_recursive(n):
-    if n == 0:
-        return 1
-    else:
-        return n * factorial_recursive(n - 1)
+#include <stdio.h>
+
+int main() {
+    int n, first = 0, second = 1, next;
+
+    printf("Enter the number of terms: ");
+    scanf("%d", &n);
+
+    printf("Fibonacci Series: ");
+
+    for (int i = 0; i < n; i++) {
+        if (i <= 1)
+            next = i;
+        else {
+            next = first + second;
+            first = second;
+            second = next;
+        }
+        printf("%d ", next);
+    }
+
+    return 0;
+}
