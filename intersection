@@ -1,4 +1,24 @@
-def intersection(nums1, nums2):
-    set1 = set(nums1)
-    set2 = set(nums2)
-    return list(set1.intersection(set2))
+#include <stdio.h>
+
+int main() {
+   int arr1[] = {1, 2, 3, 4, 5};
+   int arr2[] = {3, 4, 5, 6, 7};
+   int n = sizeof(arr1)/sizeof(arr1[0]);
+   int m = sizeof(arr2)/sizeof(arr2[0]);
+   int i = 0, j = 0;
+   
+   printf("Intersection of two arrays: ");
+   
+   while (i < n && j < m) {
+      if (arr1[i] < arr2[j])
+         i++;
+      else if (arr2[j] < arr1[i])
+         j++;
+      else {
+         printf("%d ", arr2[j++]);
+         i++;
+      }
+   }
+   
+   return 0;
+}
