@@ -1,8 +1,18 @@
-def reverse_number(n, rev=0):
-    if n == 0:
-        return rev
-    else:
-        return reverse_number(n // 10, rev * 10 + n % 10)
-number = 12345
-reversed_number = reverse_number(number)
-print(f"The reverse of {number} is: {reversed_number}")
+#include <stdio.h>
+
+int main() {
+    int number, reversedNumber = 0, remainder;
+
+    printf("Enter an integer: ");
+    scanf("%d", &number);
+
+    while (number != 0) {
+        remainder = number % 10;
+        reversedNumber = reversedNumber * 10 + remainder;
+        number /= 10;
+    }
+
+    printf("Reversed number: %d\n", reversedNumber);
+
+    return 0;
+}
