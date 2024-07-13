@@ -1,0 +1,62 @@
+#include <stdio.h>
+#define INF 9999
+#define V 4
+
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+
+int findMinPathDistance(int graph[V][V]) {
+    int dp[1 << V][V];
+    
+    for (int i = 0; i < (1 << V); i++) {
+        for (int j = 0; j < V; j++) {
+            dp[i][j] = INF;
+        }
+    }
+    
+    dp[1][0] = 0;
+    
+    for (int mask = 1; mask < (1 << V); mask += 2) {
+        for (int i = 1; i < V; i++) {
+            if ((mask & (1 << i)) != 0) {
+                for (int j = 0; j < V; j++) {
+                    if ((mask & (1 << j)) != 0) {
+                        dp[mask][i] = min(dp[mask][i], dp[mask ^ (1 << i)][j] + graph[j][i]);
+                    }
+                }
+            }
+        }
+    }
+    
+    int res = INF;
+    
+    for (int i = 1; i < V; i++) {
+        res = min(res, dp[(1 << V) - 1][i] + graph[i][0]);
+    }
+    
+    return res;
+}
+
+int main() {
+    int graph1[V][V] = {{0, 10, 15, 20},
+                        {10, 0, 35, 25},
+                        {15, 35, 0, 30},
+                        {20, 25, 30, 0}};
+    
+    int graph2[V][V] = {{0, 10, 10, 10},
+                        {10, 0, 10, 10},
+                        {10, 10, 0, 10},
+                        {10, 10, 10, 0}};
+    
+    int graph3[V][V] = {{0, 1, 2, 3},
+                        {1, 0, 4, 5},
+                        {2, 4, 0, 6},
+                        {3, 5, 6, 0}};
+    
+    printf("Output 1: %d\n", findMinPathDistance(graph1));
+    printf("Output 2: %d\n", findMinPathDistance(graph2));
+    printf("Output 3: %d\n", findMinPathDistance(graph3));
+    
+    return 0;
+}
